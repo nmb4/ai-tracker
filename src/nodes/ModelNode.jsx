@@ -49,7 +49,7 @@ function ModelNode({ data, selected }) {
           </div>
         )}
 
-        {data.lastUpdated && (
+        {data.lastUpdated && data.showFreshness !== false && (
           <FreshnessIndicator 
             lastUpdated={data.lastUpdated} 
             threshold={data.decayThreshold || 30} 

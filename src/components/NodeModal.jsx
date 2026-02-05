@@ -47,6 +47,10 @@ export function NodeModal({ type, onClose, onSave }) {
     if ((type === 'model' || type === 'tool') && !data.lastUpdated) {
       data.lastUpdated = new Date().toISOString().split('T')[0];
     }
+
+    if ((type === 'model' || type === 'tool') && data.showFreshness === undefined) {
+      data.showFreshness = true;
+    }
     
     onSave(data);
   };
@@ -311,28 +315,37 @@ export function NodeModal({ type, onClose, onSave }) {
             </div>
 
             {(type === 'model' || type === 'tool') && (
-              <div className="form-row-2">
-                <div className="form-group">
-                  <label className="form-label">Last Updated</label>
-                  <input
-                    className="form-input"
-                    type="date"
-                    value={formData.lastUpdated || new Date().toISOString().split('T')[0]}
-                    onChange={e => handleChange('lastUpdated', e.target.value)}
+              <>
+                <div className="form-group checkbox-group">
+                  <label className="form-label">Show Freshness Indicator</label>
+                  <div 
+                    className={`theme-toggle-switch ${formData.showFreshness !== false ? 'active' : ''}`}
+                    onClick={() => handleChange('showFreshness', formData.showFreshness === false)}
                   />
                 </div>
-                <div className="form-group">
-                  <label className="form-label">Freshness Limit (Days)</label>
-                  <input
-                    className="form-input"
-                    type="number"
-                    min="1"
-                    placeholder="e.g., 30"
-                    value={formData.decayThreshold || 30}
-                    onChange={e => handleChange('decayThreshold', parseInt(e.target.value))}
-                  />
+                <div className="form-row-2">
+                  <div className="form-group">
+                    <label className="form-label">Last Updated</label>
+                    <input
+                      className="form-input"
+                      type="date"
+                      value={formData.lastUpdated || new Date().toISOString().split('T')[0]}
+                      onChange={e => handleChange('lastUpdated', e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Freshness Limit (Days)</label>
+                    <input
+                      className="form-input"
+                      type="number"
+                      min="1"
+                      placeholder="e.g., 30"
+                      value={formData.decayThreshold || 30}
+                      onChange={e => handleChange('decayThreshold', parseInt(e.target.value))}
+                    />
+                  </div>
                 </div>
-              </div>
+              </>
             )}
           </div>
           <div className="modal-footer">

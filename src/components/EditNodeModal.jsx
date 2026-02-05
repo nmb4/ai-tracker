@@ -300,27 +300,36 @@ export function EditNodeModal({ node, onClose, onSave }) {
             </div>
 
             {(type === 'model' || type === 'tool') && (
-              <div className="form-row-2">
-                <div className="form-group">
-                  <label className="form-label">Last Updated</label>
-                  <input
-                    className="form-input"
-                    type="date"
-                    value={formData.lastUpdated || ''}
-                    onChange={e => handleChange('lastUpdated', e.target.value)}
+              <>
+                <div className="form-group checkbox-group">
+                  <label className="form-label">Show Freshness Indicator</label>
+                  <div 
+                    className={`theme-toggle-switch ${formData.showFreshness !== false ? 'active' : ''}`}
+                    onClick={() => handleChange('showFreshness', formData.showFreshness === false)}
                   />
                 </div>
-                <div className="form-group">
-                  <label className="form-label">Freshness Limit (Days)</label>
-                  <input
-                    className="form-input"
-                    type="number"
-                    min="1"
-                    value={formData.decayThreshold || 30}
-                    onChange={e => handleChange('decayThreshold', parseInt(e.target.value))}
-                  />
+                <div className="form-row-2">
+                  <div className="form-group">
+                    <label className="form-label">Last Updated</label>
+                    <input
+                      className="form-input"
+                      type="date"
+                      value={formData.lastUpdated || ''}
+                      onChange={e => handleChange('lastUpdated', e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Freshness Limit (Days)</label>
+                    <input
+                      className="form-input"
+                      type="number"
+                      min="1"
+                      value={formData.decayThreshold || 30}
+                      onChange={e => handleChange('decayThreshold', parseInt(e.target.value))}
+                    />
+                  </div>
                 </div>
-              </div>
+              </>
             )}
           </div>
           <div className="modal-footer">

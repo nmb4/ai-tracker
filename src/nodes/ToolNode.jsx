@@ -18,20 +18,20 @@ function ToolNode({ data, selected }) {
       <div className="node-body">
         {data.command && (
           <div className="node-field">
-            <div className="node-label">Command</div>
-            <div className="node-value" style={{ fontFamily: 'monospace' }}>{data.command}</div>
+            <span className="node-label">Command</span>
+            <span className="node-value" style={{ fontFamily: 'monospace' }}>{data.command}</span>
           </div>
         )}
         {data.description && (
           <div className="node-field">
-            <div className="node-label">Description</div>
-            <div className="node-value">{data.description}</div>
+            <span className="node-label">Description</span>
+            <span className="node-value">{data.description}</span>
           </div>
         )}
         {data.version && (
           <div className="node-field">
-            <div className="node-label">Version</div>
-            <div className="node-value">{data.version}</div>
+            <span className="node-label">Version</span>
+            <span className="node-value">{data.version}</span>
           </div>
         )}
         {data.tags && data.tags.length > 0 && (

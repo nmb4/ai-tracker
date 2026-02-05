@@ -3,7 +3,7 @@
 Extracted features and improvements from brainstorming session (transkript.txt).
 
 ## Node Interactivity & Details
-- [ ] **Detail Pop-up Cards**: Implement double-click action on nodes to open a pop-up card for detailed notes (e.g., usage descriptions, changelogs).
+- [x] **Detail Pop-up Cards**: Implement double-click action on nodes to open a pop-up card for detailed notes (e.g., usage descriptions, changelogs).
 - [ ] **Context Menu - Highlight Connected**: Add a context menu option for nodes to "Highlight Connected".
     - [ ] Action should trace all connections and select/highlight related nodes (similar to Shift-drag selection).
 

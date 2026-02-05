@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { Handle, Position } from '@xyflow/react';
-import { NoteIcon, PlusIcon, XIcon } from '../components/Icons';
+import { NoteIcon } from '../components/Icons';
 
-function BlankNode({ id, data, selected }) {
+function BlankNode({ data, selected }) {
   const fields = data.fields || [];
 
   return (
@@ -20,14 +20,14 @@ function BlankNode({ id, data, selected }) {
       <div className="node-body">
         {fields.map((field, index) => (
           <div key={index} className="node-field">
-            <div className="node-label">{field.label}</div>
-            <div className="node-value">{field.value}</div>
+            <span className="node-label">{field.label}</span>
+            <span className="node-value">{field.value}</span>
           </div>
         ))}
         {data.notes && (
-          <div className="node-field">
-            <div className="node-label">Notes</div>
-            <div className="node-value node-notes">{data.notes}</div>
+          <div className="node-field node-field-notes">
+            <span className="node-label">Notes</span>
+            <span className="node-value node-notes">{data.notes}</span>
           </div>
         )}
         {fields.length === 0 && !data.notes && (

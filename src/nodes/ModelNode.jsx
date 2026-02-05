@@ -18,20 +18,20 @@ function ModelNode({ data, selected }) {
       <div className="node-body">
         {data.provider && (
           <div className="node-field">
-            <div className="node-label">Provider</div>
-            <div className="node-value">{data.provider}</div>
+            <span className="node-label">Provider</span>
+            <span className="node-value">{data.provider}</span>
           </div>
         )}
         {data.version && (
           <div className="node-field">
-            <div className="node-label">Version</div>
-            <div className="node-value">{data.version}</div>
+            <span className="node-label">Version</span>
+            <span className="node-value">{data.version}</span>
           </div>
         )}
         {data.context && (
           <div className="node-field">
-            <div className="node-label">Context Window</div>
-            <div className="node-value">{data.context}</div>
+            <span className="node-label">Context</span>
+            <span className="node-value">{data.context}</span>
           </div>
         )}
         {data.tags && data.tags.length > 0 && (

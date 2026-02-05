@@ -18,20 +18,20 @@ function ProviderNode({ data, selected }) {
       <div className="node-body">
         {data.type && (
           <div className="node-field">
-            <div className="node-label">Type</div>
-            <div className="node-value">{data.type}</div>
+            <span className="node-label">Type</span>
+            <span className="node-value">{data.type}</span>
           </div>
         )}
         {data.apiEndpoint && (
           <div className="node-field">
-            <div className="node-label">API Endpoint</div>
-            <div className="node-value">{data.apiEndpoint}</div>
+            <span className="node-label">Endpoint</span>
+            <span className="node-value">{data.apiEndpoint}</span>
           </div>
         )}
         {data.status && (
           <div className="node-field">
-            <div className="node-label">Status</div>
-            <div className="node-value">{data.status}</div>
+            <span className="node-label">Status</span>
+            <span className="node-value">{data.status}</span>
           </div>
         )}
         {data.tags && data.tags.length > 0 && (

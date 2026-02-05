@@ -15,6 +15,7 @@ import { Sidebar } from './components/Sidebar';
 import { NodeModal } from './components/NodeModal';
 import { EditNodeModal } from './components/EditNodeModal';
 import { ContextMenu } from './components/ContextMenu';
+import { DetailPopup } from './components/DetailPopup';
 import { TargetIcon } from './components/Icons';
 
 const STORAGE_KEY = 'ai-tracker-data';
@@ -65,6 +66,7 @@ function App() {
   const [editingNode, setEditingNode] = useState(null);
   const [contextMenu, setContextMenu] = useState(null);
   const [darkMode, setDarkMode] = useState(loadTheme);
+  const [detailNode, setDetailNode] = useState(null);
 
   // Apply theme to document
   useEffect(() => {
@@ -131,6 +133,45 @@ function App() {
     setContextMenu(null);
   };
 
+  const handleHighlightConnected = (nodeId) => {
+    // Find all connected nodes by traversing edges
+    const connectedIds = new Set([nodeId]);
+    let changed = true;
+    
+    // Keep iterating until no new connections are found
+    while (changed) {
+      changed = false;
+      edges.forEach((edge) => {
+        if (connectedIds.has(edge.source) && !connectedIds.has(edge.target)) {
+          connectedIds.add(edge.target);
+          changed = true;
+        }
+        if (connectedIds.has(edge.target) && !connectedIds.has(edge.source)) {
+          connectedIds.add(edge.source);
+          changed = true;
+        }
+      });
+    }
+
+    // Select all connected nodes
+    setNodes((nds) =>
+      nds.map((node) => ({
+        ...node,
+        selected: connectedIds.has(node.id),
+      }))
+    );
+    
+    // Also highlight the connected edges
+    setEdges((eds) =>
+      eds.map((edge) => ({
+        ...edge,
+        selected: connectedIds.has(edge.source) && connectedIds.has(edge.target),
+      }))
+    );
+    
+    setContextMenu(null);
+  };
+
   const handleClear = () => {
     if (confirm('Are you sure you want to clear all nodes and connections?')) {
       setNodes([]);
@@ -151,6 +192,20 @@ function App() {
     setContextMenu(null);
   }, []);
 
+  const onNodeDoubleClick = useCallback((event, node) => {
+    setDetailNode(node);
+  }, []);
+
+  const handleDetailSave = (nodeId, data) => {
+    setNodes((nds) =>
+      nds.map((node) =>
+        node.id === nodeId ? { ...node, data } : node
+      )
+    );
+    // Update detailNode to reflect changes
+    setDetailNode(prev => prev && prev.id === nodeId ? { ...prev, data } : prev);
+  };
+
   return (
     <>
       <Sidebar 
@@ -169,6 +224,7 @@ function App() {
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
           onNodeContextMenu={onNodeContextMenu}
+          onNodeDoubleClick={onNodeDoubleClick}
           onPaneClick={onPaneClick}
           nodeTypes={nodeTypes}
           fitView
@@ -230,6 +286,14 @@ function App() {
           onDuplicate={() => handleDuplicateNode(contextMenu.node)}
           onDelete={() => handleDeleteNode(contextMenu.node.id)}
           onClose={() => setContextMenu(null)}
+        />
+      )}
+
+      {detailNode && (
+        <DetailPopup
+          node={detailNode}
+          onClose={() => setDetailNode(null)}
+          onSave={handleDetailSave}
         />
       )}
     </>

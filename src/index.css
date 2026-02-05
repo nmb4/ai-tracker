@@ -163,7 +163,7 @@ body {
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px dashed var(--border-medium);
 }
 
 .node-icon {
@@ -209,24 +209,31 @@ body {
 }
 
 .node-field {
-  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--border-light);
 }
 
 .node-field:last-child {
-  margin-bottom: 0;
+  border-bottom: none;
 }
 
 .node-label {
-  font-size: 11px;
+  font-size: 10px;
+  font-weight: 500;
   color: var(--text-tertiary);
-  margin-bottom: 2px;
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
 
 .node-value {
   font-size: 13px;
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  text-align: right;
+  max-width: 60%;
+  word-break: break-word;
 }
 
 .node-tags {
@@ -258,6 +265,17 @@ body {
 .node-notes {
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+.node-field-notes {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.node-field-notes .node-value {
+  text-align: left;
+  max-width: 100%;
 }
 
 /* Sidebar styles */
@@ -785,5 +803,167 @@ body {
 }
 
 .empty-state-icon svg {
+  color: var(--text-tertiary);
+}
+
+/* Detail Popup */
+.detail-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  animation: fadeIn 0.15s ease;
+}
+
+.detail-popup {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  width: 520px;
+  max-width: 90vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.2s ease;
+}
+
+.detail-popup-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.detail-popup-title-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-popup-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 100px;
+  width: fit-content;
+}
+
+.detail-popup-badge.model {
+  background: var(--node-model);
+  color: white;
+}
+
+.detail-popup-badge.provider {
+  background: var(--node-provider);
+  color: white;
+}
+
+.detail-popup-badge.tool {
+  background: var(--node-tool);
+  color: white;
+}
+
+.detail-popup-badge.blank {
+  background: #9CA3AF;
+  color: white;
+}
+
+.detail-popup-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.detail-popup-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.detail-section {
+  margin-bottom: 24px;
+}
+
+.detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.detail-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-tertiary);
+  margin: 0 0 12px 0;
+}
+
+.detail-properties {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+}
+
+.detail-prop-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border-light);
+}
+
+.detail-prop-row:last-child {
+  border-bottom: none;
+}
+
+.detail-prop-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: 0.3px;
+}
+
+.detail-prop-value {
+  font-size: 14px;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.detail-notes-input {
+  width: 100%;
+  min-height: 150px;
+  padding: 12px;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  resize: vertical;
+  transition: border-color 0.15s ease;
+}
+
+.detail-notes-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.detail-notes-input::placeholder {
   color: var(--text-tertiary);
 }

@@ -282,7 +282,7 @@ body {
   position: fixed;
   left: 0;
   top: 0;
-  width: 280px;
+  width: 210px;
   height: 100vh;
   background: var(--bg-primary);
   border-right: 1px solid var(--border-light);
@@ -717,7 +717,7 @@ body {
 /* Flow container offset for sidebar */
 .flow-container {
   position: absolute;
-  left: 280px;
+  left: 210px;
   top: 0;
   right: 0;
   bottom: 0;

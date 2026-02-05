@@ -1,20 +1,46 @@
 import { useState } from 'react';
+import { PlusIcon, XIcon } from './Icons';
 
 export function NodeModal({ type, onClose, onSave }) {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({ fields: [] });
 
   const handleChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleFieldChange = (index, key, value) => {
+    setFormData(prev => {
+      const fields = [...(prev.fields || [])];
+      fields[index] = { ...fields[index], [key]: value };
+      return { ...prev, fields };
+    });
+  };
+
+  const addField = () => {
+    setFormData(prev => ({
+      ...prev,
+      fields: [...(prev.fields || []), { label: '', value: '' }]
+    }));
+  };
+
+  const removeField = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      fields: prev.fields.filter((_, i) => i !== index)
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.name?.trim()) return;
     
-    // Parse tags from comma-separated string
     const data = { ...formData };
-    if (data.tags) {
+    if (data.tags && typeof data.tags === 'string') {
       data.tags = data.tags.split(',').map(t => t.trim()).filter(Boolean);
+    }
+    // Filter out empty fields for blank nodes
+    if (data.fields) {
+      data.fields = data.fields.filter(f => f.label.trim() && f.value.trim());
     }
     onSave(data);
   };
@@ -23,6 +49,14 @@ export function NodeModal({ type, onClose, onSave }) {
     model: 'Add AI Model',
     provider: 'Add Provider',
     tool: 'Add CLI Tool',
+    blank: 'Add Custom Note',
+  };
+
+  const placeholders = {
+    model: 'e.g., Claude 3.5 Sonnet',
+    provider: 'e.g., Anthropic',
+    tool: 'e.g., aider',
+    blank: 'e.g., My Ideas',
   };
 
   return (
@@ -30,7 +64,9 @@ export function NodeModal({ type, onClose, onSave }) {
       <div className="modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <h2 className="modal-title">{titles[type]}</h2>
-          <button className="modal-close" onClick={onClose}>✕</button>
+          <button className="modal-close" onClick={onClose}>
+            <XIcon size={16} />
+          </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -39,7 +75,7 @@ export function NodeModal({ type, onClose, onSave }) {
               <input
                 className="form-input"
                 type="text"
-                placeholder={type === 'model' ? 'e.g., Claude 3.5 Sonnet' : type === 'provider' ? 'e.g., Anthropic' : 'e.g., aider'}
+                placeholder={placeholders[type]}
                 value={formData.name || ''}
                 onChange={e => handleChange('name', e.target.value)}
                 autoFocus
@@ -146,6 +182,56 @@ export function NodeModal({ type, onClose, onSave }) {
                     value={formData.version || ''}
                     onChange={e => handleChange('version', e.target.value)}
                   />
+                </div>
+              </>
+            )}
+
+            {type === 'blank' && (
+              <>
+                <div className="form-group">
+                  <label className="form-label">Notes</label>
+                  <textarea
+                    className="form-input form-textarea"
+                    placeholder="Any notes or ideas..."
+                    value={formData.notes || ''}
+                    onChange={e => handleChange('notes', e.target.value)}
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <div className="form-label-row">
+                    <label className="form-label">Custom Fields</label>
+                    <button type="button" className="add-field-btn" onClick={addField}>
+                      <PlusIcon size={14} />
+                      <span>Add Field</span>
+                    </button>
+                  </div>
+                  
+                  {(formData.fields || []).map((field, index) => (
+                    <div key={index} className="custom-field-row">
+                      <input
+                        className="form-input field-label-input"
+                        type="text"
+                        placeholder="Label"
+                        value={field.label}
+                        onChange={e => handleFieldChange(index, 'label', e.target.value)}
+                      />
+                      <input
+                        className="form-input field-value-input"
+                        type="text"
+                        placeholder="Value"
+                        value={field.value}
+                        onChange={e => handleFieldChange(index, 'value', e.target.value)}
+                      />
+                      <button 
+                        type="button" 
+                        className="remove-field-btn"
+                        onClick={() => removeField(index)}
+                      >
+                        <XIcon size={14} />
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </>
             )}

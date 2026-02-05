@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
+import { EditIcon, CopyIcon, TrashIcon } from './Icons';
 
-export function ContextMenu({ x, y, onEdit, onDelete, onClose }) {
+export function ContextMenu({ x, y, onEdit, onDuplicate, onDelete, onClose }) {
   const ref = useRef();
 
   useEffect(() => {
@@ -20,10 +21,16 @@ export function ContextMenu({ x, y, onEdit, onDelete, onClose }) {
       style={{ left: x, top: y }}
     >
       <div className="context-menu-item" onClick={onEdit}>
-        ✏️ Edit Node
+        <EditIcon size={14} />
+        <span>Edit Node</span>
+      </div>
+      <div className="context-menu-item" onClick={onDuplicate}>
+        <CopyIcon size={14} />
+        <span>Duplicate</span>
       </div>
       <div className="context-menu-item danger" onClick={onDelete}>
-        🗑️ Delete Node
+        <TrashIcon size={14} />
+        <span>Delete Node</span>
       </div>
     </div>
   );

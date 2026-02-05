@@ -15,6 +15,7 @@ import { Sidebar } from './components/Sidebar';
 import { NodeModal } from './components/NodeModal';
 import { EditNodeModal } from './components/EditNodeModal';
 import { ContextMenu } from './components/ContextMenu';
+import { TargetIcon } from './components/Icons';
 
 const STORAGE_KEY = 'ai-tracker-data';
 const THEME_KEY = 'ai-tracker-theme';
@@ -115,6 +116,21 @@ function App() {
     setContextMenu(null);
   };
 
+  const handleDuplicateNode = (node) => {
+    const newNode = {
+      ...node,
+      id: `${node.type}-${Date.now()}`,
+      position: {
+        x: node.position.x + 50,
+        y: node.position.y + 50,
+      },
+      data: { ...node.data },
+      selected: false,
+    };
+    setNodes((nds) => [...nds, newNode]);
+    setContextMenu(null);
+  };
+
   const handleClear = () => {
     if (confirm('Are you sure you want to clear all nodes and connections?')) {
       setNodes([]);
@@ -166,6 +182,7 @@ function App() {
                 case 'model': return '#DA7756';
                 case 'provider': return '#6B7FD7';
                 case 'tool': return '#4CAF50';
+                case 'blank': return '#9CA3AF';
                 default: return '#888';
               }
             }}
@@ -175,7 +192,9 @@ function App() {
 
         {nodes.length === 0 && (
           <div className="empty-state">
-            <div className="empty-state-icon">🎯</div>
+            <div className="empty-state-icon">
+              <TargetIcon size={48} />
+            </div>
             <div className="empty-state-title">No nodes yet</div>
             <div className="empty-state-text">
               Click the buttons in the sidebar to add AI models, providers, and CLI tools to your canvas.
@@ -208,6 +227,7 @@ function App() {
             setEditingNode(contextMenu.node);
             setContextMenu(null);
           }}
+          onDuplicate={() => handleDuplicateNode(contextMenu.node)}
           onDelete={() => handleDeleteNode(contextMenu.node.id)}
           onClose={() => setContextMenu(null)}
         />

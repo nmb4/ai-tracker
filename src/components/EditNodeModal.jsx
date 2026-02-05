@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { PlusIcon, XIcon } from './Icons';
 
 export function EditNodeModal({ node, onClose, onSave }) {
   const [formData, setFormData] = useState({});
@@ -6,8 +7,11 @@ export function EditNodeModal({ node, onClose, onSave }) {
   useEffect(() => {
     if (node) {
       const data = { ...node.data };
-      if (data.tags) {
+      if (data.tags && Array.isArray(data.tags)) {
         data.tags = data.tags.join(', ');
+      }
+      if (!data.fields) {
+        data.fields = [];
       }
       setFormData(data);
     }
@@ -15,6 +19,28 @@ export function EditNodeModal({ node, onClose, onSave }) {
 
   const handleChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleFieldChange = (index, key, value) => {
+    setFormData(prev => {
+      const fields = [...(prev.fields || [])];
+      fields[index] = { ...fields[index], [key]: value };
+      return { ...prev, fields };
+    });
+  };
+
+  const addField = () => {
+    setFormData(prev => ({
+      ...prev,
+      fields: [...(prev.fields || []), { label: '', value: '' }]
+    }));
+  };
+
+  const removeField = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      fields: prev.fields.filter((_, i) => i !== index)
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -25,6 +51,9 @@ export function EditNodeModal({ node, onClose, onSave }) {
     if (typeof data.tags === 'string') {
       data.tags = data.tags.split(',').map(t => t.trim()).filter(Boolean);
     }
+    if (data.fields) {
+      data.fields = data.fields.filter(f => f.label.trim() && f.value.trim());
+    }
     onSave(node.id, data);
   };
 
@@ -34,6 +63,7 @@ export function EditNodeModal({ node, onClose, onSave }) {
     model: 'Edit AI Model',
     provider: 'Edit Provider',
     tool: 'Edit CLI Tool',
+    blank: 'Edit Custom Note',
   };
 
   if (!node) return null;
@@ -43,7 +73,9 @@ export function EditNodeModal({ node, onClose, onSave }) {
       <div className="modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <h2 className="modal-title">{titles[type]}</h2>
-          <button className="modal-close" onClick={onClose}>✕</button>
+          <button className="modal-close" onClick={onClose}>
+            <XIcon size={16} />
+          </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="modal-body">
@@ -149,6 +181,56 @@ export function EditNodeModal({ node, onClose, onSave }) {
                     value={formData.version || ''}
                     onChange={e => handleChange('version', e.target.value)}
                   />
+                </div>
+              </>
+            )}
+
+            {type === 'blank' && (
+              <>
+                <div className="form-group">
+                  <label className="form-label">Notes</label>
+                  <textarea
+                    className="form-input form-textarea"
+                    placeholder="Any notes or ideas..."
+                    value={formData.notes || ''}
+                    onChange={e => handleChange('notes', e.target.value)}
+                  />
+                </div>
+                
+                <div className="form-group">
+                  <div className="form-label-row">
+                    <label className="form-label">Custom Fields</label>
+                    <button type="button" className="add-field-btn" onClick={addField}>
+                      <PlusIcon size={14} />
+                      <span>Add Field</span>
+                    </button>
+                  </div>
+                  
+                  {(formData.fields || []).map((field, index) => (
+                    <div key={index} className="custom-field-row">
+                      <input
+                        className="form-input field-label-input"
+                        type="text"
+                        placeholder="Label"
+                        value={field.label}
+                        onChange={e => handleFieldChange(index, 'label', e.target.value)}
+                      />
+                      <input
+                        className="form-input field-value-input"
+                        type="text"
+                        placeholder="Value"
+                        value={field.value}
+                        onChange={e => handleFieldChange(index, 'value', e.target.value)}
+                      />
+                      <button 
+                        type="button" 
+                        className="remove-field-btn"
+                        onClick={() => removeField(index)}
+                      >
+                        <XIcon size={14} />
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </>
             )}

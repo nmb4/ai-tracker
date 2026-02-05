@@ -54,6 +54,12 @@ export function EditNodeModal({ node, onClose, onSave }) {
     if (data.fields) {
       data.fields = data.fields.filter(f => f.label.trim() && f.value.trim());
     }
+    
+    // Update lastUpdated for Models and Tools when saved
+    if (type === 'model' || type === 'tool') {
+      data.lastUpdated = new Date().toISOString();
+    }
+    
     onSave(node.id, data);
   };
 
@@ -119,6 +125,26 @@ export function EditNodeModal({ node, onClose, onSave }) {
                     onChange={e => handleChange('context', e.target.value)}
                   />
                 </div>
+                <div className="form-group">
+                  <label className="form-label">Speed (0-100%)</label>
+                  <input
+                    className="form-input"
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={formData.speed || ''}
+                    onChange={e => handleChange('speed', parseInt(e.target.value))}
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Tokens Per Second (TPS)</label>
+                  <input
+                    className="form-input"
+                    type="number"
+                    value={formData.tps || ''}
+                    onChange={e => handleChange('tps', parseInt(e.target.value))}
+                  />
+                </div>
               </>
             )}
 
@@ -151,6 +177,39 @@ export function EditNodeModal({ node, onClose, onSave }) {
                     onChange={e => handleChange('status', e.target.value)}
                   />
                 </div>
+                <div className="form-group">
+                  <label className="form-label">Payment Type</label>
+                  <select 
+                    className="form-input"
+                    value={formData.paymentType || 'pay-per-token'}
+                    onChange={e => handleChange('paymentType', e.target.value)}
+                  >
+                    <option value="pay-per-token">Pay-per-token</option>
+                    <option value="subscription">Subscription</option>
+                  </select>
+                </div>
+                {formData.paymentType === 'subscription' && (
+                  <>
+                    <div className="form-group">
+                      <label className="form-label">Price</label>
+                      <input
+                        className="form-input"
+                        type="text"
+                        value={formData.price || ''}
+                        onChange={e => handleChange('price', e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Subscription Status</label>
+                      <input
+                        className="form-input"
+                        type="text"
+                        value={formData.subStatus || ''}
+                        onChange={e => handleChange('subStatus', e.target.value)}
+                      />
+                    </div>
+                  </>
+                )}
               </>
             )}
 

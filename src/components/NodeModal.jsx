@@ -42,6 +42,12 @@ export function NodeModal({ type, onClose, onSave }) {
     if (data.fields) {
       data.fields = data.fields.filter(f => f.label.trim() && f.value.trim());
     }
+    
+    // Set lastUpdated for Models and Tools
+    if (type === 'model' || type === 'tool') {
+      data.lastUpdated = new Date().toISOString();
+    }
+    
     onSave(data);
   };
 
@@ -114,6 +120,28 @@ export function NodeModal({ type, onClose, onSave }) {
                     onChange={e => handleChange('context', e.target.value)}
                   />
                 </div>
+                <div className="form-group">
+                  <label className="form-label">Speed (0-100%)</label>
+                  <input
+                    className="form-input"
+                    type="number"
+                    min="0"
+                    max="100"
+                    placeholder="e.g., 85"
+                    value={formData.speed || ''}
+                    onChange={e => handleChange('speed', parseInt(e.target.value))}
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Tokens Per Second (TPS)</label>
+                  <input
+                    className="form-input"
+                    type="number"
+                    placeholder="e.g., 50"
+                    value={formData.tps || ''}
+                    onChange={e => handleChange('tps', parseInt(e.target.value))}
+                  />
+                </div>
               </>
             )}
 
@@ -149,6 +177,41 @@ export function NodeModal({ type, onClose, onSave }) {
                     onChange={e => handleChange('status', e.target.value)}
                   />
                 </div>
+                <div className="form-group">
+                  <label className="form-label">Payment Type</label>
+                  <select 
+                    className="form-input"
+                    value={formData.paymentType || 'pay-per-token'}
+                    onChange={e => handleChange('paymentType', e.target.value)}
+                  >
+                    <option value="pay-per-token">Pay-per-token</option>
+                    <option value="subscription">Subscription</option>
+                  </select>
+                </div>
+                {formData.paymentType === 'subscription' && (
+                  <>
+                    <div className="form-group">
+                      <label className="form-label">Price</label>
+                      <input
+                        className="form-input"
+                        type="text"
+                        placeholder="e.g., $20/mo"
+                        value={formData.price || ''}
+                        onChange={e => handleChange('price', e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Subscription Status</label>
+                      <input
+                        className="form-input"
+                        type="text"
+                        placeholder="e.g., Active"
+                        value={formData.subStatus || ''}
+                        onChange={e => handleChange('subStatus', e.target.value)}
+                      />
+                    </div>
+                  </>
+                )}
               </>
             )}
 

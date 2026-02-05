@@ -53,6 +53,24 @@ export function DetailPopup({ node, onClose, onSave }) {
                       <span className="detail-prop-value">{node.data.context}</span>
                     </div>
                   )}
+                  {node.data.speed && (
+                    <div className="detail-prop-row">
+                      <span className="detail-prop-label">SPEED</span>
+                      <span className="detail-prop-value">{node.data.speed}%</span>
+                    </div>
+                  )}
+                  {node.data.tps && (
+                    <div className="detail-prop-row">
+                      <span className="detail-prop-label">TPS</span>
+                      <span className="detail-prop-value">{node.data.tps} Tokens/sec</span>
+                    </div>
+                  )}
+                  {node.data.lastUpdated && (
+                    <div className="detail-prop-row">
+                      <span className="detail-prop-label">LAST UPDATED</span>
+                      <span className="detail-prop-value">{new Date(node.data.lastUpdated).toLocaleDateString()}</span>
+                    </div>
+                  )}
                 </>
               )}
               {node.type === 'provider' && (
@@ -75,6 +93,28 @@ export function DetailPopup({ node, onClose, onSave }) {
                       <span className="detail-prop-value">{node.data.status}</span>
                     </div>
                   )}
+                  {node.data.paymentType && (
+                    <div className="detail-prop-row">
+                      <span className="detail-prop-label">PAYMENT</span>
+                      <span className="detail-prop-value">{node.data.paymentType === 'subscription' ? 'Subscription' : 'Pay-per-token'}</span>
+                    </div>
+                  )}
+                  {node.data.paymentType === 'subscription' && (
+                    <>
+                      {node.data.price && (
+                        <div className="detail-prop-row">
+                          <span className="detail-prop-label">PRICE</span>
+                          <span className="detail-prop-value">{node.data.price}</span>
+                        </div>
+                      )}
+                      {node.data.subStatus && (
+                        <div className="detail-prop-row">
+                          <span className="detail-prop-label">SUB STATUS</span>
+                          <span className="detail-prop-value">{node.data.subStatus}</span>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </>
               )}
               {node.type === 'tool' && (
@@ -95,6 +135,12 @@ export function DetailPopup({ node, onClose, onSave }) {
                     <div className="detail-prop-row">
                       <span className="detail-prop-label">VERSION</span>
                       <span className="detail-prop-value">{node.data.version}</span>
+                    </div>
+                  )}
+                  {node.data.lastUpdated && (
+                    <div className="detail-prop-row">
+                      <span className="detail-prop-label">LAST UPDATED</span>
+                      <span className="detail-prop-value">{new Date(node.data.lastUpdated).toLocaleDateString()}</span>
                     </div>
                   )}
                 </>

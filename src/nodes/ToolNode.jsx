@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { Handle, Position } from '@xyflow/react';
 import { TerminalIcon } from '../components/Icons';
+import { FreshnessIndicator } from '../components/FreshnessIndicator';
 
 function ToolNode({ data, selected }) {
   return (
@@ -40,6 +41,9 @@ function ToolNode({ data, selected }) {
               <span key={i} className="node-tag">{tag}</span>
             ))}
           </div>
+        )}
+        {data.lastUpdated && (
+          <FreshnessIndicator lastUpdated={data.lastUpdated} />
         )}
       </div>
       <Handle type="source" position={Position.Right} />

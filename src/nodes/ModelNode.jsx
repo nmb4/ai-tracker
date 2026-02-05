@@ -1,6 +1,8 @@
 import { memo } from 'react';
 import { Handle, Position } from '@xyflow/react';
 import { BrainIcon } from '../components/Icons';
+import { FreshnessIndicator } from '../components/FreshnessIndicator';
+import { SpeedIndicator } from '../components/SpeedIndicator';
 
 function ModelNode({ data, selected }) {
   return (
@@ -34,12 +36,21 @@ function ModelNode({ data, selected }) {
             <span className="node-value">{data.context}</span>
           </div>
         )}
+        
+        {(data.speed !== undefined || data.tps !== undefined) && (
+          <SpeedIndicator speed={data.speed} tps={data.tps} />
+        )}
+
         {data.tags && data.tags.length > 0 && (
           <div className="node-tags">
             {data.tags.map((tag, i) => (
               <span key={i} className="node-tag">{tag}</span>
             ))}
           </div>
+        )}
+
+        {data.lastUpdated && (
+          <FreshnessIndicator lastUpdated={data.lastUpdated} />
         )}
       </div>
       <Handle type="source" position={Position.Right} />

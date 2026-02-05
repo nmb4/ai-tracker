@@ -968,3 +968,89 @@ body {
 .detail-notes-input::placeholder {
   color: var(--text-tertiary);
 }
+
+/* Freshness Indicator */
+.freshness-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border-light);
+}
+
+.freshness-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.freshness-label {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.decay-0 .freshness-dot { background-color: #10B981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.4); }
+.decay-1 .freshness-dot { background-color: #84CC16; }
+.decay-2 .freshness-dot { background-color: #F59E0B; }
+.decay-3 .freshness-dot { background-color: #F97316; }
+.decay-4 .freshness-dot { background-color: #EF4444; }
+
+/* Speed Indicator */
+.speed-indicator {
+  margin-top: 8px;
+}
+
+.speed-bar-container {
+  width: 100%;
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.speed-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.speed-fast { background-color: #10B981; }
+.speed-medium { background-color: #F59E0B; }
+.speed-slow { background-color: #F97316; }
+.speed-very-slow { background-color: #EF4444; }
+
+.speed-label {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Payment Badges */
+.payment-badge {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.3px;
+}
+
+.pay-per-token {
+  background: var(--accent-light);
+  color: var(--accent-primary);
+}
+
+.subscription {
+  background: #E0E7FF;
+  color: #4338CA;
+}
+
+[data-theme="dark"] .subscription {
+  background: #2D3748;
+  color: #A5B4FC;
+}

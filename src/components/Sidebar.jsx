@@ -1,9 +1,10 @@
-import { BrainIcon, CloudIcon, TerminalIcon, NoteIcon, SunIcon } from './Icons';
+import { BrainIcon, CloudIcon, TerminalIcon, WrenchIcon, NoteIcon, SunIcon } from './Icons';
 
 export function Sidebar({ nodes, onAddNode, onExport, onImport, onExportView, onExportAll, darkMode, onToggleDarkMode }) {
   const modelCount = nodes.filter(n => n.type === 'model').length;
   const providerCount = nodes.filter(n => n.type === 'provider').length;
   const toolCount = nodes.filter(n => n.type === 'tool').length;
+  const builderCount = nodes.filter(n => n.type === 'builder').length;
   const blankCount = nodes.filter(n => n.type === 'blank').length;
 
   const handleImportClick = () => {
@@ -43,6 +44,10 @@ export function Sidebar({ nodes, onAddNode, onExport, onImport, onExportView, on
           <span className="icon tool"><TerminalIcon size={16} /></span>
           <span className="text">CLI Tool</span>
         </button>
+        <button className="add-node-btn" onClick={() => onAddNode('builder')}>
+          <span className="icon builder"><WrenchIcon size={16} /></span>
+          <span className="text">Builder</span>
+        </button>
         <button className="add-node-btn" onClick={() => onAddNode('blank')}>
           <span className="icon blank"><NoteIcon size={16} /></span>
           <span className="text">Custom Note</span>
@@ -71,6 +76,10 @@ export function Sidebar({ nodes, onAddNode, onExport, onImport, onExportView, on
         <div className="stat-item">
           <span className="stat-label">CLI Tools</span>
           <span className="stat-value">{toolCount}</span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-label">Builders</span>
+          <span className="stat-value">{builderCount}</span>
         </div>
         <div className="stat-item">
           <span className="stat-label">Custom Notes</span>

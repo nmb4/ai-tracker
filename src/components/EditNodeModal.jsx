@@ -69,6 +69,7 @@ export function EditNodeModal({ node, onClose, onSave }) {
     model: 'Edit AI Model',
     provider: 'Edit Provider',
     tool: 'Edit CLI Tool',
+    builder: 'Edit Builder',
     blank: 'Edit Custom Note',
     section: 'Edit Section',
   };
@@ -245,6 +246,61 @@ export function EditNodeModal({ node, onClose, onSave }) {
               </>
             )}
 
+            {type === 'builder' && (
+              <>
+                <div className="form-group">
+                  <label className="form-label">Website</label>
+                  <input
+                    className="form-input"
+                    type="text"
+                    value={formData.website || ''}
+                    onChange={e => handleChange('website', e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Pricing Type</label>
+                  <select
+                    className="form-input"
+                    value={formData.pricingType || 'freemium'}
+                    onChange={e => handleChange('pricingType', e.target.value)}
+                  >
+                    <option value="free">Free</option>
+                    <option value="freemium">Freemium</option>
+                    <option value="subscription">Subscription</option>
+                    <option value="pay-per-use">Pay-per-use</option>
+                  </select>
+                </div>
+                {formData.pricingType === 'subscription' && (
+                  <div className="form-group">
+                    <label className="form-label">Price</label>
+                    <input
+                      className="form-input"
+                      type="text"
+                      value={formData.price || ''}
+                      onChange={e => handleChange('price', e.target.value)}
+                    />
+                  </div>
+                )}
+                <div className="form-group">
+                  <label className="form-label">Features</label>
+                  <textarea
+                    className="form-input form-textarea"
+                    value={formData.features || ''}
+                    onChange={e => handleChange('features', e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Export Formats</label>
+                  <input
+                    className="form-input"
+                    type="text"
+                    value={formData.exportFormats || ''}
+                    onChange={e => handleChange('exportFormats', e.target.value)}
+                  />
+                </div>
+              </>
+            )}
+
             {type === 'blank' && (
               <>
                 <div className="form-group">
@@ -305,7 +361,7 @@ export function EditNodeModal({ node, onClose, onSave }) {
               />
             </div>
 
-            {(type === 'model' || type === 'tool') && (
+            {(type === 'model' || type === 'tool' || type === 'builder') && (
               <>
                 <div className="form-group checkbox-group">
                   <label className="form-label">Show Freshness Indicator</label>

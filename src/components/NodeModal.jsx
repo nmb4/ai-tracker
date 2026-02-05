@@ -48,12 +48,12 @@ export function NodeModal({ type, onClose, onSave }) {
       data.fields = data.fields.filter(f => f.label.trim() && f.value.trim());
     }
     
-    // Set lastUpdated for Models and Tools if not manually changed
-    if ((type === 'model' || type === 'tool') && !data.lastUpdated) {
+    // Set lastUpdated for Models, Tools, and Builders if not manually changed
+    if ((type === 'model' || type === 'tool' || type === 'builder') && !data.lastUpdated) {
       data.lastUpdated = new Date().toISOString().split('T')[0];
     }
 
-    if ((type === 'model' || type === 'tool') && data.showFreshness === undefined) {
+    if ((type === 'model' || type === 'tool' || type === 'builder') && data.showFreshness === undefined) {
       data.showFreshness = true;
     }
     
@@ -64,6 +64,7 @@ export function NodeModal({ type, onClose, onSave }) {
     model: 'Add AI Model',
     provider: 'Add Provider',
     tool: 'Add CLI Tool',
+    builder: 'Add Builder',
     blank: 'Add Custom Note',
     section: 'Add Section',
   };
@@ -72,6 +73,7 @@ export function NodeModal({ type, onClose, onSave }) {
     model: 'e.g., Claude 3.5 Sonnet',
     provider: 'e.g., Anthropic',
     tool: 'e.g., aider',
+    builder: 'e.g., v0, Lovable, BoltAI',
     blank: 'e.g., My Ideas',
     section: 'e.g., Active Stack',
   };
@@ -260,6 +262,65 @@ export function NodeModal({ type, onClose, onSave }) {
               </>
             )}
 
+            {type === 'builder' && (
+              <>
+                <div className="form-group">
+                  <label className="form-label">Website</label>
+                  <input
+                    className="form-input"
+                    type="text"
+                    placeholder="e.g., v0.dev"
+                    value={formData.website || ''}
+                    onChange={e => handleChange('website', e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Pricing Type</label>
+                  <select
+                    className="form-input"
+                    value={formData.pricingType || 'freemium'}
+                    onChange={e => handleChange('pricingType', e.target.value)}
+                  >
+                    <option value="free">Free</option>
+                    <option value="freemium">Freemium</option>
+                    <option value="subscription">Subscription</option>
+                    <option value="pay-per-use">Pay-per-use</option>
+                  </select>
+                </div>
+                {formData.pricingType === 'subscription' && (
+                  <div className="form-group">
+                    <label className="form-label">Price</label>
+                    <input
+                      className="form-input"
+                      type="text"
+                      placeholder="e.g., $20/mo"
+                      value={formData.price || ''}
+                      onChange={e => handleChange('price', e.target.value)}
+                    />
+                  </div>
+                )}
+                <div className="form-group">
+                  <label className="form-label">Features</label>
+                  <textarea
+                    className="form-input form-textarea"
+                    placeholder="Key capabilities..."
+                    value={formData.features || ''}
+                    onChange={e => handleChange('features', e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Export Formats</label>
+                  <input
+                    className="form-input"
+                    type="text"
+                    placeholder="e.g., React, Next.js, Tailwind"
+                    value={formData.exportFormats || ''}
+                    onChange={e => handleChange('exportFormats', e.target.value)}
+                  />
+                </div>
+              </>
+            )}
+
             {type === 'blank' && (
               <>
                 <div className="form-group">
@@ -321,7 +382,7 @@ export function NodeModal({ type, onClose, onSave }) {
               />
             </div>
 
-            {(type === 'model' || type === 'tool') && (
+            {(type === 'model' || type === 'tool' || type === 'builder') && (
               <>
                 <div className="form-group checkbox-group">
                   <label className="form-label">Show Freshness Indicator</label>

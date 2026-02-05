@@ -23,6 +23,7 @@
   --node-model: #DA7756;
   --node-provider: #6B7FD7;
   --node-tool: #4CAF50;
+  --node-builder: #9333EA;
   
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -206,6 +207,10 @@ body {
 
 .node-icon.tool {
   color: var(--node-tool);
+}
+
+.node-icon.builder {
+  color: var(--node-builder);
 }
 
 .node-title {
@@ -402,6 +407,10 @@ body {
 
 .add-node-btn .icon.blank {
   color: #9CA3AF;
+}
+
+.add-node-btn .icon.builder {
+  color: var(--node-builder);
 }
 
 .add-node-btn .icon.section {
@@ -955,6 +964,11 @@ body {
 
 .detail-popup-badge.tool {
   background: var(--node-tool);
+  color: white;
+}
+
+.detail-popup-badge.builder {
+  background: var(--node-builder);
   color: white;
 }
 

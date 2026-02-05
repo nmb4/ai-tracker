@@ -470,6 +470,23 @@ body {
   color: var(--text-primary);
 }
 
+.primary-btn {
+  padding: 10px;
+  background: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.primary-btn:hover {
+  background: var(--accent-secondary);
+  border-color: var(--accent-secondary);
+}
+
 .clear-btn {
   width: 100%;
   padding: 10px;

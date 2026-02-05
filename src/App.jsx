@@ -7,8 +7,11 @@ import {
   useNodesState,
   useEdgesState,
   addEdge,
+  getNodesBounds,
+  getViewportForBounds,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
+import { toPng } from 'html-to-image';
 
 import { nodeTypes } from './nodes';
 import { Sidebar } from './components/Sidebar';
@@ -232,6 +235,49 @@ function App() {
     reader.readAsText(file);
   };
 
+  const handleExportImage = () => {
+    if (nodes.length === 0) return;
+
+    const element = document.querySelector('.react-flow');
+    const controls = document.querySelector('.react-flow__controls');
+    const minimap = document.querySelector('.react-flow__minimap');
+    
+    if (controls) controls.style.display = 'none';
+    if (minimap) minimap.style.display = 'none';
+
+    // Get the current background color and border color for the dots
+    const bgColor = darkMode ? '#1A1A1A' : '#FAF9F7';
+    const dotColor = darkMode ? '#333333' : '#E5E2DC';
+
+    toPng(element, {
+      backgroundColor: bgColor,
+      pixelRatio: 3, // High resolution (3x)
+      filter: (node) => {
+        if (node?.classList?.contains('react-flow__controls') || 
+            node?.classList?.contains('react-flow__minimap')) {
+          return false;
+        }
+        return true;
+      },
+      // Force the dot color by injecting styles during capture
+      style: {
+        '--border-light': dotColor,
+      }
+    }).then((dataUrl) => {
+      const link = document.createElement('a');
+      link.download = `ai-tracker-canvas-${new Date().toISOString().split('T')[0]}.png`;
+      link.href = dataUrl;
+      link.click();
+      
+      if (controls) controls.style.display = 'flex';
+      if (minimap) minimap.style.display = 'block';
+    }).catch((err) => {
+      console.error('Export image failed:', err);
+      if (controls) controls.style.display = 'flex';
+      if (minimap) minimap.style.display = 'block';
+    });
+  };
+
   const onNodeContextMenu = useCallback((event, node) => {
     event.preventDefault();
     setContextMenu({
@@ -267,6 +313,7 @@ function App() {
         onClear={handleClear}
         onExport={handleExport}
         onImport={handleImport}
+        onExportImage={handleExportImage}
         darkMode={darkMode}
         onToggleDarkMode={() => setDarkMode(!darkMode)}
       />

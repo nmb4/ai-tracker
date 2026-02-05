@@ -186,6 +186,15 @@ function App() {
     setContextMenu(null);
   };
 
+  const handleToggleStar = (nodeId) => {
+    setNodes((nds) =>
+      nds.map((node) =>
+        node.id === nodeId ? { ...node, data: { ...node.data, starred: !node.data.starred } } : node
+      )
+    );
+    setContextMenu(null);
+  };
+
   const handleClear = () => {
     if (confirm('Are you sure you want to clear all nodes and connections?')) {
       setNodes([]);
@@ -326,12 +335,14 @@ function App() {
         <ContextMenu
           x={contextMenu.x}
           y={contextMenu.y}
+          node={contextMenu.node}
           onEdit={() => {
             setEditingNode(contextMenu.node);
             setContextMenu(null);
           }}
           onDuplicate={() => handleDuplicateNode(contextMenu.node)}
           onHighlightConnected={() => handleHighlightConnected(contextMenu.node.id)}
+          onToggleStar={() => handleToggleStar(contextMenu.node.id)}
           onDelete={() => handleDeleteNode(contextMenu.node.id)}
           onClose={() => setContextMenu(null)}
         />

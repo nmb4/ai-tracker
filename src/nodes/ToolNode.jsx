@@ -1,12 +1,17 @@
 import { memo } from 'react';
 import { Handle, Position } from '@xyflow/react';
-import { TerminalIcon } from '../components/Icons';
+import { TerminalIcon, StarIcon } from '../components/Icons';
 import { FreshnessIndicator } from '../components/FreshnessIndicator';
 
 function ToolNode({ data, selected }) {
   return (
     <div className={`custom-node ${selected ? 'selected' : ''}`}>
       <Handle type="target" position={Position.Left} />
+      {data.starred && (
+        <div className="node-star">
+          <StarIcon size={14} fill="currentColor" />
+        </div>
+      )}
       <div className="node-header">
         <div className="node-icon tool">
           <TerminalIcon size={18} />

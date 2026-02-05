@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { EditIcon, CopyIcon, TrashIcon } from './Icons';
+import { EditIcon, CopyIcon, TrashIcon, StarIcon, HighlightIcon } from './Icons';
 
-export function ContextMenu({ x, y, onEdit, onDuplicate, onHighlightConnected, onDelete, onClose }) {
+export function ContextMenu({ x, y, node, onEdit, onDuplicate, onHighlightConnected, onToggleStar, onDelete, onClose }) {
   const ref = useRef();
 
   useEffect(() => {
@@ -13,6 +13,9 @@ export function ContextMenu({ x, y, onEdit, onDuplicate, onHighlightConnected, o
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
   }, [onClose]);
+
+  const canStar = node?.type === 'model' || node?.type === 'tool';
+  const isStarred = node?.data?.starred;
 
   return (
     <div 
@@ -28,11 +31,14 @@ export function ContextMenu({ x, y, onEdit, onDuplicate, onHighlightConnected, o
         <CopyIcon size={14} />
         <span>Duplicate</span>
       </div>
+      {canStar && (
+        <div className="context-menu-item" onClick={onToggleStar}>
+          <StarIcon size={14} fill={isStarred ? "currentColor" : "none"} />
+          <span>{isStarred ? 'Unstar Node' : 'Star Node'}</span>
+        </div>
+      )}
       <div className="context-menu-item" onClick={onHighlightConnected}>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <circle cx="12" cy="12" r="4"/>
-        </svg>
+        <HighlightIcon size={14} />
         <span>Highlight Connected</span>
       </div>
       <div className="context-menu-item danger" onClick={onDelete}>
@@ -42,3 +48,4 @@ export function ContextMenu({ x, y, onEdit, onDuplicate, onHighlightConnected, o
     </div>
   );
 }
+

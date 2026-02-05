@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Handle, Position } from '@xyflow/react';
-import { BrainIcon } from '../components/Icons';
+import { BrainIcon, StarIcon } from '../components/Icons';
 import { FreshnessIndicator } from '../components/FreshnessIndicator';
 import { SpeedIndicator } from '../components/SpeedIndicator';
 
@@ -8,6 +8,11 @@ function ModelNode({ data, selected }) {
   return (
     <div className={`custom-node ${selected ? 'selected' : ''}`}>
       <Handle type="target" position={Position.Left} />
+      {data.starred && (
+        <div className="node-star">
+          <StarIcon size={14} fill="currentColor" />
+        </div>
+      )}
       <div className="node-header">
         <div className="node-icon model">
           <BrainIcon size={18} />

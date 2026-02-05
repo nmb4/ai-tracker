@@ -146,6 +146,7 @@ body {
   box-shadow: var(--shadow-md);
   min-width: 220px;
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .custom-node:hover {
@@ -156,6 +157,18 @@ body {
 .custom-node.selected {
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 2px var(--accent-light), var(--shadow-lg);
+}
+
+.node-star {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #F59E0B; /* Amber/Star color */
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
 }
 
 .node-header {

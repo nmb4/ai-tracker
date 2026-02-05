@@ -1,16 +1,19 @@
+import { getSpeedDescription } from '../utils/speed';
+
 export function SpeedIndicator({ speed, tps }) {
   // speed is 0-100, tps is tokens per second
   const displayValue = speed ?? (tps ? Math.min(100, tps / 2) : null);
   
   if (displayValue === null && !tps) return null;
   
-  const label = tps ? `${tps} TPS` : `${speed}%`;
+  const valueLabel = tps ? `${tps} TPS` : `${speed}%`;
+  const description = getSpeedDescription(displayValue);
   
   // Color based on speed
   let colorClass;
-  if (displayValue >= 80) {
+  if (displayValue >= 60) {
     colorClass = 'speed-fast';
-  } else if (displayValue >= 50) {
+  } else if (displayValue >= 40) {
     colorClass = 'speed-medium';
   } else if (displayValue >= 20) {
     colorClass = 'speed-slow';
@@ -19,14 +22,16 @@ export function SpeedIndicator({ speed, tps }) {
   }
   
   return (
-    <div className="speed-indicator" title={`Speed: ${label}`}>
+    <div className="speed-indicator" title={`Exact Speed: ${valueLabel}`}>
+      <div className="speed-header">
+        <span className="speed-label">SPEED: {description}</span>
+      </div>
       <div className="speed-bar-container">
         <div 
           className={`speed-bar-fill ${colorClass}`} 
           style={{ width: `${displayValue}%` }}
         />
       </div>
-      <span className="speed-label">{label}</span>
     </div>
   );
 }

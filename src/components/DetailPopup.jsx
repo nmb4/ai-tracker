@@ -1,4 +1,5 @@
 import { XIcon } from './Icons';
+import { getSpeedDescription } from '../utils/speed';
 
 export function DetailPopup({ node, onClose, onSave }) {
   if (!node) return null;
@@ -56,13 +57,13 @@ export function DetailPopup({ node, onClose, onSave }) {
                   {node.data.speed && (
                     <div className="detail-prop-row">
                       <span className="detail-prop-label">SPEED</span>
-                      <span className="detail-prop-value">{node.data.speed}%</span>
+                      <span className="detail-prop-value">{node.data.speed}% ({getSpeedDescription(node.data.speed)})</span>
                     </div>
                   )}
                   {node.data.tps && (
                     <div className="detail-prop-row">
                       <span className="detail-prop-label">TPS</span>
-                      <span className="detail-prop-value">{node.data.tps} Tokens/sec</span>
+                      <span className="detail-prop-value">{node.data.tps} TPS ({getSpeedDescription(Math.min(100, node.data.tps / 2))})</span>
                     </div>
                   )}
                   {node.data.lastUpdated && (

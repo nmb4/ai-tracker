@@ -31,4 +31,4 @@ Extracted features and improvements from brainstorming session (transkript.txt).
     - [x] If Subscription: Add status indicator ("Active" vs "Inactive") and monthly price
 
 ## System Features
-- [ ] **Import/Export**: Implement functionality to export the graph state to a file and import it back (extending current Local Storage persistence).
+- [x] **Import/Export**: Implement functionality to export the graph state to a file and import it back (extending current Local Storage persistence).

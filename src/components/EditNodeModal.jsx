@@ -29,6 +29,11 @@ export function EditNodeModal({ node, onClose, onSave }) {
     });
   };
 
+  const handleNumericChange = (field, value) => {
+    const parsed = parseInt(value);
+    setFormData(prev => ({ ...prev, [field]: isNaN(parsed) ? undefined : parsed }));
+  };
+
   const addField = () => {
     setFormData(prev => ({
       ...prev,
@@ -128,8 +133,8 @@ export function EditNodeModal({ node, onClose, onSave }) {
                     type="number"
                     min="0"
                     max="100"
-                    value={formData.speed || ''}
-                    onChange={e => handleChange('speed', parseInt(e.target.value))}
+                    value={formData.speed === undefined ? '' : formData.speed}
+                    onChange={e => handleNumericChange('speed', e.target.value)}
                   />
                 </div>
                 <div className="form-group">
@@ -137,8 +142,8 @@ export function EditNodeModal({ node, onClose, onSave }) {
                   <input
                     className="form-input"
                     type="number"
-                    value={formData.tps || ''}
-                    onChange={e => handleChange('tps', parseInt(e.target.value))}
+                    value={formData.tps === undefined ? '' : formData.tps}
+                    onChange={e => handleNumericChange('tps', e.target.value)}
                   />
                 </div>
               </>

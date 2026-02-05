@@ -2,11 +2,12 @@ import { getSpeedDescription } from '../utils/speed';
 
 export function SpeedIndicator({ speed, tps }) {
   // speed is 0-100, tps is tokens per second
-  const displayValue = speed ?? (tps ? Math.min(100, tps / 2) : null);
+  const displayValue = (speed !== undefined && !isNaN(speed)) ? speed : 
+                       (tps !== undefined && !isNaN(tps)) ? Math.min(100, tps / 2) : null;
   
-  if (displayValue === null && !tps) return null;
+  if (displayValue == null) return null;
   
-  const valueLabel = tps ? `${tps} TPS` : `${speed}%`;
+  const valueLabel = tps !== undefined && !isNaN(tps) ? `${tps} TPS` : `${speed}%`;
   const description = getSpeedDescription(displayValue);
   
   // Color based on speed

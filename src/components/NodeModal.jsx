@@ -30,6 +30,11 @@ export function NodeModal({ type, onClose, onSave }) {
     }));
   };
 
+  const handleNumericChange = (field, value) => {
+    const parsed = parseInt(value);
+    setFormData(prev => ({ ...prev, [field]: isNaN(parsed) ? undefined : parsed }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.name?.trim()) return;
@@ -134,8 +139,8 @@ export function NodeModal({ type, onClose, onSave }) {
                     min="0"
                     max="100"
                     placeholder="e.g., 85"
-                    value={formData.speed || ''}
-                    onChange={e => handleChange('speed', parseInt(e.target.value))}
+                    value={formData.speed === undefined ? '' : formData.speed}
+                    onChange={e => handleNumericChange('speed', e.target.value)}
                   />
                 </div>
                 <div className="form-group">
@@ -144,8 +149,8 @@ export function NodeModal({ type, onClose, onSave }) {
                     className="form-input"
                     type="number"
                     placeholder="e.g., 50"
-                    value={formData.tps || ''}
-                    onChange={e => handleChange('tps', parseInt(e.target.value))}
+                    value={formData.tps === undefined ? '' : formData.tps}
+                    onChange={e => handleNumericChange('tps', e.target.value)}
                   />
                 </div>
               </>

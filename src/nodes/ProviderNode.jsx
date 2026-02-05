@@ -16,50 +16,52 @@ function ProviderNode({ data, selected }) {
         </div>
       </div>
       <div className="node-body">
-        {data.type && (
-          <div className="node-field">
-            <span className="node-label">Type</span>
-            <span className="node-value">{data.type}</span>
-          </div>
-        )}
-        {data.apiEndpoint && (
-          <div className="node-field">
-            <span className="node-label">Endpoint</span>
-            <span className="node-value">{data.apiEndpoint}</span>
-          </div>
-        )}
-        {data.status && (
-          <div className="node-field">
-            <span className="node-label">Status</span>
-            <span className="node-value">{data.status}</span>
-          </div>
-        )}
+        <div className="node-properties">
+          {data.type && (
+            <div className="node-field">
+              <span className="node-label">Type</span>
+              <span className="node-value">{data.type}</span>
+            </div>
+          )}
+          {data.apiEndpoint && (
+            <div className="node-field">
+              <span className="node-label">Endpoint</span>
+              <span className="node-value">{data.apiEndpoint}</span>
+            </div>
+          )}
+          {data.status && (
+            <div className="node-field">
+              <span className="node-label">Status</span>
+              <span className="node-value">{data.status}</span>
+            </div>
+          )}
 
-        {data.paymentType && (
-          <div className="node-field">
-            <span className="node-label">Payment</span>
-            <span className={`payment-badge ${data.paymentType === 'subscription' ? 'subscription' : 'pay-per-token'}`}>
-              {data.paymentType === 'subscription' ? 'Subscription' : 'Pay-per-token'}
-            </span>
-          </div>
-        )}
+          {data.paymentType && (
+            <div className="node-field">
+              <span className="node-label">Payment</span>
+              <span className={`payment-badge ${data.paymentType === 'subscription' ? 'subscription' : 'pay-per-token'}`}>
+                {data.paymentType === 'subscription' ? 'Subscription' : 'Pay-per-token'}
+              </span>
+            </div>
+          )}
 
-        {data.paymentType === 'subscription' && (
-          <>
-            {data.price && (
-              <div className="node-field">
-                <span className="node-label">Price</span>
-                <span className="node-value">{data.price}</span>
-              </div>
-            )}
-            {data.subStatus && (
-              <div className="node-field">
-                <span className="node-label">Sub Status</span>
-                <span className="node-value">{data.subStatus}</span>
-              </div>
-            )}
-          </>
-        )}
+          {data.paymentType === 'subscription' && (
+            <>
+              {data.price && (
+                <div className="node-field">
+                  <span className="node-label">Price</span>
+                  <span className="node-value">{data.price}</span>
+                </div>
+              )}
+              {data.subStatus && (
+                <div className="node-field">
+                  <span className="node-label">Sub Status</span>
+                  <span className="node-value">{data.subStatus}</span>
+                </div>
+              )}
+            </>
+          )}
+        </div>
 
         {data.tags && data.tags.length > 0 && (
           <div className="node-tags">

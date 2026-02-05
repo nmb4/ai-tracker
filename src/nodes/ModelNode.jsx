@@ -18,24 +18,26 @@ function ModelNode({ data, selected }) {
         </div>
       </div>
       <div className="node-body">
-        {data.provider && (
-          <div className="node-field">
-            <span className="node-label">Provider</span>
-            <span className="node-value">{data.provider}</span>
-          </div>
-        )}
-        {data.version && (
-          <div className="node-field">
-            <span className="node-label">Version</span>
-            <span className="node-value">{data.version}</span>
-          </div>
-        )}
-        {data.context && (
-          <div className="node-field">
-            <span className="node-label">Context</span>
-            <span className="node-value">{data.context}</span>
-          </div>
-        )}
+        <div className="node-properties">
+          {data.provider && (
+            <div className="node-field">
+              <span className="node-label">Provider</span>
+              <span className="node-value">{data.provider}</span>
+            </div>
+          )}
+          {data.version && (
+            <div className="node-field">
+              <span className="node-label">Version</span>
+              <span className="node-value">{data.version}</span>
+            </div>
+          )}
+          {data.context && (
+            <div className="node-field">
+              <span className="node-label">Context</span>
+              <span className="node-value">{data.context}</span>
+            </div>
+          )}
+        </div>
         
         {(data.speed !== undefined || data.tps !== undefined) && (
           <SpeedIndicator speed={data.speed} tps={data.tps} />

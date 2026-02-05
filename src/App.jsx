@@ -235,7 +235,7 @@ function App() {
     reader.readAsText(file);
   };
 
-  const handleExportImage = () => {
+  const handleExportView = () => {
     if (nodes.length === 0) return;
 
     const element = document.querySelector('.react-flow');
@@ -262,7 +262,7 @@ function App() {
       }
     }).then((dataUrl) => {
       const link = document.createElement('a');
-      link.download = `ai-tracker-canvas-${new Date().toISOString().split('T')[0]}.png`;
+      link.download = `ai-tracker-view-${new Date().toISOString().split('T')[0]}.png`;
       link.href = dataUrl;
       link.click();
       
@@ -270,6 +270,41 @@ function App() {
     }).catch((err) => {
       console.error('Export image failed:', err);
       if (controls) controls.style.display = 'flex';
+    });
+  };
+
+  const handleExportAll = () => {
+    if (nodes.length === 0) return;
+
+    const nodesBounds = getNodesBounds(nodes);
+    const element = document.querySelector('.react-flow__viewport');
+    
+    // Add some padding
+    const padding = 50;
+    const width = nodesBounds.width + padding * 2;
+    const height = nodesBounds.height + padding * 2;
+
+    const bgColor = darkMode ? '#1A1A1A' : '#FAF9F7';
+    const dotColor = darkMode ? '#333333' : '#E5E2DC';
+
+    toPng(element, {
+      backgroundColor: bgColor,
+      width: width,
+      height: height,
+      pixelRatio: 3,
+      style: {
+        width: `${width}px`,
+        height: `${height}px`,
+        transform: `translate(${(-nodesBounds.x + padding)}px, ${(-nodesBounds.y + padding)}px) scale(1)`,
+        '--border-light': dotColor,
+      },
+    }).then((dataUrl) => {
+      const link = document.createElement('a');
+      link.download = `ai-tracker-full-canvas-${new Date().toISOString().split('T')[0]}.png`;
+      link.href = dataUrl;
+      link.click();
+    }).catch((err) => {
+      console.error('Export all failed:', err);
     });
   };
 
@@ -308,7 +343,8 @@ function App() {
         onClear={handleClear}
         onExport={handleExport}
         onImport={handleImport}
-        onExportImage={handleExportImage}
+        onExportView={handleExportView}
+        onExportAll={handleExportAll}
         darkMode={darkMode}
         onToggleDarkMode={() => setDarkMode(!darkMode)}
       />

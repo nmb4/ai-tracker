@@ -9,6 +9,7 @@ export function DetailPopup({ node, onClose, onSave }) {
     provider: 'Provider',
     tool: 'CLI Tool',
     blank: 'Custom Note',
+    section: 'Section',
   };
 
   const handleNotesChange = (e) => {

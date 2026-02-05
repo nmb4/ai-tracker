@@ -47,6 +47,15 @@ export function Sidebar({ nodes, onAddNode, onClear, onExport, onImport, darkMod
           <span className="icon blank"><NoteIcon size={16} /></span>
           <span className="text">Custom Note</span>
         </button>
+        <button className="add-node-btn" onClick={() => onAddNode('section')}>
+          <span className="icon section">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+              <line x1="3" x2="21" y1="9" y2="9"/>
+            </svg>
+          </span>
+          <span className="text">Section</span>
+        </button>
       </div>
 
       <div className="sidebar-stats">

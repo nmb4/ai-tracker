@@ -99,6 +99,13 @@ function App() {
       },
       data,
     };
+
+    if (modalType === 'section') {
+      newNode.width = 400;
+      newNode.height = 300;
+      newNode.zIndex = -1;
+    }
+
     setNodes((nds) => [...nds, newNode]);
     setModalType(null);
   };
@@ -129,6 +136,13 @@ function App() {
       data: { ...node.data },
       selected: false,
     };
+
+    if (node.type === 'section') {
+      newNode.width = node.width;
+      newNode.height = node.height;
+      newNode.zIndex = -1;
+    }
+
     setNodes((nds) => [...nds, newNode]);
     setContextMenu(null);
   };
@@ -271,6 +285,7 @@ function App() {
                 case 'provider': return '#6B7FD7';
                 case 'tool': return '#4CAF50';
                 case 'blank': return '#9CA3AF';
+                case 'section': return 'rgba(0,0,0,0.1)';
                 default: return '#888';
               }
             }}

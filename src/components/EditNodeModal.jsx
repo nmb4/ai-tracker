@@ -65,6 +65,7 @@ export function EditNodeModal({ node, onClose, onSave }) {
     provider: 'Edit Provider',
     tool: 'Edit CLI Tool',
     blank: 'Edit Custom Note',
+    section: 'Edit Section',
   };
 
   if (!node) return null;

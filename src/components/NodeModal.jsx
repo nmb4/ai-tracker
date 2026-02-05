@@ -60,6 +60,7 @@ export function NodeModal({ type, onClose, onSave }) {
     provider: 'Add Provider',
     tool: 'Add CLI Tool',
     blank: 'Add Custom Note',
+    section: 'Add Section',
   };
 
   const placeholders = {
@@ -67,6 +68,7 @@ export function NodeModal({ type, onClose, onSave }) {
     provider: 'e.g., Anthropic',
     tool: 'e.g., aider',
     blank: 'e.g., My Ideas',
+    section: 'e.g., Active Stack',
   };
 
   return (

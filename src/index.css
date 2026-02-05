@@ -387,6 +387,10 @@ body {
   color: #9CA3AF;
 }
 
+.add-node-btn .icon.section {
+  color: var(--text-tertiary);
+}
+
 .add-node-btn .text {
   font-size: 13px;
   font-weight: 500;
@@ -1118,4 +1122,52 @@ body {
 [data-theme="dark"] .subscription {
   background: #2D3748;
   color: #A5B4FC;
+}
+
+/* Section Node */
+.section-node {
+  background: rgba(0, 0, 0, 0.02);
+  border: 2px dashed var(--border-medium);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+[data-theme="dark"] .section-node {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: #333;
+}
+
+.section-node.selected {
+  border-color: var(--accent-primary);
+  background: rgba(218, 119, 86, 0.05);
+}
+
+.section-header {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--bg-primary);
+  padding: 0 10px;
+  z-index: 10;
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-resizer-line {
+  border-color: var(--accent-primary) !important;
+}
+
+.section-resizer-handle {
+  background: var(--bg-primary) !important;
+  border: 2px solid var(--accent-primary) !important;
+  border-radius: 4px !important;
 }

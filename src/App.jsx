@@ -240,10 +240,8 @@ function App() {
 
     const element = document.querySelector('.react-flow');
     const controls = document.querySelector('.react-flow__controls');
-    const minimap = document.querySelector('.react-flow__minimap');
     
     if (controls) controls.style.display = 'none';
-    if (minimap) minimap.style.display = 'none';
 
     // Get the current background color and border color for the dots
     const bgColor = darkMode ? '#1A1A1A' : '#FAF9F7';
@@ -253,8 +251,7 @@ function App() {
       backgroundColor: bgColor,
       pixelRatio: 3, // High resolution (3x)
       filter: (node) => {
-        if (node?.classList?.contains('react-flow__controls') || 
-            node?.classList?.contains('react-flow__minimap')) {
+        if (node?.classList?.contains('react-flow__controls')) {
           return false;
         }
         return true;
@@ -270,11 +267,9 @@ function App() {
       link.click();
       
       if (controls) controls.style.display = 'flex';
-      if (minimap) minimap.style.display = 'block';
     }).catch((err) => {
       console.error('Export image failed:', err);
       if (controls) controls.style.display = 'flex';
-      if (minimap) minimap.style.display = 'block';
     });
   };
 
@@ -334,18 +329,6 @@ function App() {
           snapGrid={[15, 15]}
         >
           <Controls />
-          <MiniMap 
-            nodeColor={(node) => {
-              switch (node.type) {
-                case 'model': return '#DA7756';
-                case 'provider': return '#6B7FD7';
-                case 'tool': return '#4CAF50';
-                case 'blank': return '#9CA3AF';
-                case 'section': return 'rgba(0,0,0,0.1)';
-                default: return '#888';
-              }
-            }}
-          />
           <Background variant="dots" gap={20} size={1} />
         </ReactFlow>
 

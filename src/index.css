@@ -138,6 +138,10 @@ body {
   box-shadow: var(--shadow-md);
 }
 
+.react-flow__attribution {
+  display: none !important;
+}
+
 /* Custom node styles */
 .custom-node {
   background: var(--bg-primary);

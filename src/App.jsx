@@ -284,6 +284,7 @@ function App() {
             setContextMenu(null);
           }}
           onDuplicate={() => handleDuplicateNode(contextMenu.node)}
+          onHighlightConnected={() => handleHighlightConnected(contextMenu.node.id)}
           onDelete={() => handleDeleteNode(contextMenu.node.id)}
           onClose={() => setContextMenu(null)}
         />

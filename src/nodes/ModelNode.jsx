@@ -50,7 +50,10 @@ function ModelNode({ data, selected }) {
         )}
 
         {data.lastUpdated && (
-          <FreshnessIndicator lastUpdated={data.lastUpdated} />
+          <FreshnessIndicator 
+            lastUpdated={data.lastUpdated} 
+            threshold={data.decayThreshold || 30} 
+          />
         )}
       </div>
       <Handle type="source" position={Position.Right} />

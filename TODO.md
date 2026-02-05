@@ -20,15 +20,15 @@ Extracted features and improvements from brainstorming session (transkript.txt).
     - [x] Visual Aid: Add a very subtle connecting line between Name and Value (color slightly lighter than background) to assist reading.
 
 ## Indicators & Metrics
-- [ ] **Update Frequency/Freshness Indicator**:
-    - [ ] Add visual indicator for Tools and Models showing "Last Updated" or "Update Frequency".
-    - [ ] Implement visual decay over time (fading or color change, not the full node tho, only an indicator) to represent age.
-- [ ] **Model Speed Indicator**:
-    - [ ] Add a progress bar/visualizer for Model nodes to show speed.
-    - [ ] Support manual value input (0-100) or TPS (Tokens Per Second).
-- [ ] **Provider Payment Details**:
-    - [ ] Add field for Payment Type: "Pay-per-token" vs "Subscription-based".
-    - [ ] If Subscription: Add status indicator ("Active" vs "Inactive") and monthly price
+- [x] **Update Frequency/Freshness Indicator**:
+    - [x] Add visual indicator for Tools and Models showing "Last Updated" or "Update Frequency".
+    - [x] Implement visual decay over time (fading or color change, not the full node tho, only an indicator) to represent age.
+- [x] **Model Speed Indicator**:
+    - [x] Add a progress bar/visualizer for Model nodes to show speed.
+    - [x] Support manual value input (0-100) or TPS (Tokens Per Second).
+- [x] **Provider Payment Details**:
+    - [x] Add field for Payment Type: "Pay-per-token" vs "Subscription-based".
+    - [x] If Subscription: Add status indicator ("Active" vs "Inactive") and monthly price
 
 ## System Features
 - [ ] **Import/Export**: Implement functionality to export the graph state to a file and import it back (extending current Local Storage persistence).

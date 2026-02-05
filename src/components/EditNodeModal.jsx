@@ -55,11 +55,6 @@ export function EditNodeModal({ node, onClose, onSave }) {
       data.fields = data.fields.filter(f => f.label.trim() && f.value.trim());
     }
     
-    // Update lastUpdated for Models and Tools when saved
-    if (type === 'model' || type === 'tool') {
-      data.lastUpdated = new Date().toISOString();
-    }
-    
     onSave(node.id, data);
   };
 
@@ -303,6 +298,30 @@ export function EditNodeModal({ node, onClose, onSave }) {
                 onChange={e => handleChange('tags', e.target.value)}
               />
             </div>
+
+            {(type === 'model' || type === 'tool') && (
+              <div className="form-row-2">
+                <div className="form-group">
+                  <label className="form-label">Last Updated</label>
+                  <input
+                    className="form-input"
+                    type="date"
+                    value={formData.lastUpdated || ''}
+                    onChange={e => handleChange('lastUpdated', e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Freshness Limit (Days)</label>
+                  <input
+                    className="form-input"
+                    type="number"
+                    min="1"
+                    value={formData.decayThreshold || 30}
+                    onChange={e => handleChange('decayThreshold', parseInt(e.target.value))}
+                  />
+                </div>
+              </div>
+            )}
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" onClick={onClose}>

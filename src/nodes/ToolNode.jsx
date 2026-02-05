@@ -43,7 +43,10 @@ function ToolNode({ data, selected }) {
           </div>
         )}
         {data.lastUpdated && (
-          <FreshnessIndicator lastUpdated={data.lastUpdated} />
+          <FreshnessIndicator 
+            lastUpdated={data.lastUpdated} 
+            threshold={data.decayThreshold || 30} 
+          />
         )}
       </div>
       <Handle type="source" position={Position.Right} />

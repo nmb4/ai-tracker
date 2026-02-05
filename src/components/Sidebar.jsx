@@ -1,6 +1,6 @@
 import { BrainIcon, CloudIcon, TerminalIcon, NoteIcon, SunIcon } from './Icons';
 
-export function Sidebar({ nodes, onAddNode, onClear, onExport, onImport, onExportView, onExportAll, darkMode, onToggleDarkMode }) {
+export function Sidebar({ nodes, onAddNode, onExport, onImport, onExportView, onExportAll, darkMode, onToggleDarkMode }) {
   const modelCount = nodes.filter(n => n.type === 'model').length;
   const providerCount = nodes.filter(n => n.type === 'provider').length;
   const toolCount = nodes.filter(n => n.type === 'tool').length;
@@ -107,9 +107,6 @@ export function Sidebar({ nodes, onAddNode, onClear, onExport, onImport, onExpor
             Import JSON
           </button>
         </div>
-        <button className="clear-btn" onClick={onClear}>
-          Clear All
-        </button>
       </div>
     </div>
   );

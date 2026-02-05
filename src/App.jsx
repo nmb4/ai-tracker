@@ -340,7 +340,6 @@ function App() {
       <Sidebar 
         nodes={nodes} 
         onAddNode={handleAddNode} 
-        onClear={handleClear}
         onExport={handleExport}
         onImport={handleImport}
         onExportView={handleExportView}

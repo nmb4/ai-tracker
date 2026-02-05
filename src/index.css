@@ -169,26 +169,26 @@ body {
 .node-icon {
   width: 32px;
   height: 32px;
-  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+}
+
+.node-icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 .node-icon.model {
-  background: linear-gradient(135deg, var(--node-model), #E8956F);
-  color: white;
+  color: var(--node-model);
 }
 
 .node-icon.provider {
-  background: linear-gradient(135deg, var(--node-provider), #8B9BE0);
-  color: white;
+  color: var(--node-provider);
 }
 
 .node-icon.tool {
-  background: linear-gradient(135deg, var(--node-tool), #6BC96B);
-  color: white;
+  color: var(--node-tool);
 }
 
 .node-title {
@@ -252,8 +252,7 @@ body {
 }
 
 .node-icon.blank {
-  background: linear-gradient(135deg, #9CA3AF, #B5B5B5);
-  color: white;
+  color: #9CA3AF;
 }
 
 .node-empty-hint {
@@ -362,28 +361,30 @@ body {
 .add-node-btn .icon {
   width: 28px;
   height: 28px;
-  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  color: white;
+}
+
+.add-node-btn .icon svg {
+  width: 20px;
+  height: 20px;
 }
 
 .add-node-btn .icon.model {
-  background: var(--node-model);
+  color: var(--node-model);
 }
 
 .add-node-btn .icon.provider {
-  background: var(--node-provider);
+  color: var(--node-provider);
 }
 
 .add-node-btn .icon.tool {
-  background: var(--node-tool);
+  color: var(--node-tool);
 }
 
 .add-node-btn .icon.blank {
-  background: #9CA3AF;
+  color: #9CA3AF;
 }
 
 .add-node-btn .text {

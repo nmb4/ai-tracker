@@ -179,6 +179,36 @@ function App() {
     }
   };
 
+  const handleExport = () => {
+    const data = { nodes, edges };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ai-tracker-export-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImport = (file) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (data.nodes && Array.isArray(data.nodes) && data.edges && Array.isArray(data.edges)) {
+          setNodes(data.nodes);
+          setEdges(data.edges);
+        } else {
+          alert('Invalid file format. Please import a valid AI Tracker export.');
+        }
+      } catch (err) {
+        console.error('Import failed:', err);
+        alert('Failed to parse the file. Make sure it is a valid JSON.');
+      }
+    };
+    reader.readAsText(file);
+  };
+
   const onNodeContextMenu = useCallback((event, node) => {
     event.preventDefault();
     setContextMenu({
@@ -212,6 +242,8 @@ function App() {
         nodes={nodes} 
         onAddNode={handleAddNode} 
         onClear={handleClear}
+        onExport={handleExport}
+        onImport={handleImport}
         darkMode={darkMode}
         onToggleDarkMode={() => setDarkMode(!darkMode)}
       />

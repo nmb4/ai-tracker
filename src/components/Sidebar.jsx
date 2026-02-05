@@ -1,10 +1,23 @@
 import { BrainIcon, CloudIcon, TerminalIcon, NoteIcon, SunIcon } from './Icons';
 
-export function Sidebar({ nodes, onAddNode, onClear, darkMode, onToggleDarkMode }) {
+export function Sidebar({ nodes, onAddNode, onClear, onExport, onImport, darkMode, onToggleDarkMode }) {
   const modelCount = nodes.filter(n => n.type === 'model').length;
   const providerCount = nodes.filter(n => n.type === 'provider').length;
   const toolCount = nodes.filter(n => n.type === 'tool').length;
   const blankCount = nodes.filter(n => n.type === 'blank').length;
+
+  const handleImportClick = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        onImport(file);
+      }
+    };
+    input.click();
+  };
 
   return (
     <div className="sidebar">
@@ -69,6 +82,14 @@ export function Sidebar({ nodes, onAddNode, onClear, darkMode, onToggleDarkMode 
       </div>
 
       <div className="sidebar-footer">
+        <div className="footer-btns">
+          <button className="secondary-btn" onClick={onExport}>
+            Export JSON
+          </button>
+          <button className="secondary-btn" onClick={handleImportClick}>
+            Import JSON
+          </button>
+        </div>
         <button className="clear-btn" onClick={onClear}>
           Clear All
         </button>

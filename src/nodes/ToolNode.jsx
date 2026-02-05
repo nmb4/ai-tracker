@@ -24,12 +24,6 @@ function ToolNode({ data, selected }) {
               <span className="node-value" style={{ fontFamily: 'monospace' }}>{data.command}</span>
             </div>
           )}
-          {data.description && (
-            <div className="node-field">
-              <span className="node-label">Description</span>
-              <span className="node-value">{data.description}</span>
-            </div>
-          )}
           {data.version && (
             <div className="node-field">
               <span className="node-label">Version</span>
@@ -37,6 +31,14 @@ function ToolNode({ data, selected }) {
             </div>
           )}
         </div>
+
+        {data.description && (
+          <div className="node-field node-field-long">
+            <span className="node-label">Description</span>
+            <span className="node-value">{data.description}</span>
+          </div>
+        )}
+
         {data.tags && data.tags.length > 0 && (
           <div className="node-tags">
             {data.tags.map((tag, i) => (

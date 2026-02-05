@@ -263,7 +263,7 @@ body {
   word-break: break-word;
 }
 
-.node-field-notes {
+.node-field-long {
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
@@ -272,7 +272,7 @@ body {
   border-top: 1px dashed var(--border-light);
 }
 
-.node-field-notes .node-value {
+.node-field-long .node-value {
   text-align: left;
   max-width: 100%;
 }

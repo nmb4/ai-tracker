@@ -25,7 +25,7 @@ function BlankNode({ data, selected }) {
           </div>
         ))}
         {data.notes && (
-          <div className="node-field node-field-notes">
+          <div className="node-field node-field-long">
             <span className="node-label">Notes</span>
             <span className="node-value node-notes">{data.notes}</span>
           </div>
